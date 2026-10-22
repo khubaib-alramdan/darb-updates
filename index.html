@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>رفيق دربك للكابتن</title>
+<meta name="description" content="تطبيق الكباتن: عداد أجرة دقيق، المالية والمصاريف، التحدي اليومي، الأذكار وأوقات الصلاة.">
+<meta property="og:title" content="رفيق دربك للكابتن 🚕">
+<meta property="og:description" content="عداد دقيق، مصاريف وصافي ربح، تحدّي يومي، وأذكار. حمّل التطبيق مجاناً وجرّبه 3 أيام.">
+<meta property="og:image" content="logo.png">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0b0c;
+    --card: #16130d;
+    --line: #3a2f17;
+    --gold: #f5c451;
+    --gold2: #e0a72b;
+    --text: #f5f0e6;
+    --muted: #b3a990;
+    --green: #22c55e;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Cairo", "Segoe UI", Tahoma, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+  .glow {
+    position: fixed; inset: -20% -20% auto -20%; height: 70vh; z-index: -1;
+    background: radial-gradient(closest-side, rgba(245,196,81,.22), transparent 70%);
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 18px; }
+
+  /* البداية */
+  .hero { text-align: center; padding: 46px 0 28px; }
+  .logo {
+    width: 128px; height: 128px; border-radius: 30px;
+    box-shadow: 0 0 0 3px rgba(245,196,81,.35), 0 18px 50px rgba(245,196,81,.25);
+    animation: float 4s ease-in-out infinite;
+  }
+  @keyframes float { 50% { transform: translateY(-8px); } }
+  .hello { margin-top: 18px; color: var(--gold); font-weight: 800; font-size: 18px; }
+  h1 { font-size: clamp(32px, 8vw, 46px); font-weight: 900; line-height: 1.25; margin-top: 4px; }
+  h1 span { color: var(--gold); }
+  .lead { color: var(--muted); font-size: 18px; margin: 12px auto 0; max-width: 520px; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    margin-top: 26px; padding: 16px 34px; border-radius: 18px;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: #1a1406; font-weight: 900; font-size: 21px; text-decoration: none;
+    box-shadow: 0 12px 30px rgba(245,196,81,.35);
+    transition: transform .15s ease;
+  }
+  .btn:active { transform: scale(.97); }
+  .ver { margin-top: 10px; color: var(--muted); font-size: 14px; }
+  .badges { margin-top: 16px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .badge { background: rgba(245,196,81,.1); border: 1px solid var(--line); color: var(--gold); border-radius: 999px; padding: 4px 14px; font-size: 14px; font-weight: 600; }
+
+  /* الأقسام */
+  section { padding: 22px 0; }
+  h2 { font-size: 24px; font-weight: 900; margin-bottom: 14px; text-align: center; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 14px 12px;
+  }
+  .card .ic { font-size: 28px; line-height: 1.2; }
+  .card h3 { font-size: 16px; font-weight: 800; margin-top: 4px; }
+  .card p { color: var(--muted); font-size: 13px; line-height: 1.6; margin-top: 2px; }
+
+  .steps { counter-reset: s; display: grid; gap: 10px; }
+  .step {
+    display: flex; gap: 14px; align-items: flex-start;
+    background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 14px 16px;
+  }
+  .step::before {
+    counter-increment: s; content: counter(s);
+    flex: 0 0 36px; height: 36px; border-radius: 50%;
+    background: var(--gold); color: #1a1406; font-weight: 900; font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .step b { display: block; font-size: 17px; }
+  .step span { color: var(--muted); font-size: 14px; }
+
+  .price {
+    text-align: center; background: linear-gradient(160deg, #1d180c, #120f09);
+    border: 1px solid var(--gold2); border-radius: 26px; padding: 24px 18px;
+  }
+  .price .big { font-size: 40px; font-weight: 900; color: var(--gold); line-height: 1.2; }
+  .price p { color: var(--muted); }
+
+  .wa {
+    display: inline-flex; align-items: center; gap: 8px; margin-top: 14px;
+    background: #25d366; color: #fff; text-decoration: none; font-weight: 800;
+    padding: 12px 26px; border-radius: 16px; font-size: 17px;
+  }
+  footer { text-align: center; color: var(--muted); font-size: 13px; padding: 28px 0 40px; }
+
+  @media (max-width: 340px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="glow"></div>
+<div class="wrap">
+
+  <header class="hero">
+    <img class="logo" src="logo.png" alt="رفيق دربك للكابتن">
+    <div class="hello">أهلاً يا كابتن 👋</div>
+    <h1>رفيق دربك <span>للكابتن</span></h1>
+    <p class="lead">رفيقك بالشغل كل يوم: عداد أجرة دقيق، حساب مصاريفك وصافي ربحك، وتحدّي يومي يرفع دخلك.</p>
+
+    <a class="btn" href="https://github.com/khubaib-alramdan/darb-updates/releases/latest/download/darb.apk">⬇️ حمّل التطبيق</a>
+    <div class="ver" id="ver">لأجهزة أندرويد • آخر إصدار</div>
+    <div class="badges">
+      <span class="badge">🎁 3 أيام مجاناً</span>
+      <span class="badge">📦 حجم صغير</span>
+      <span class="badge">🔔 تحديثات تلقائية</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>شو بيعمل التطبيق؟</h2>
+    <div class="grid">
+      <div class="card"><div class="ic">🚕</div><h3>عداد دقيق</h3><p>بالـ GPS: فتحة العداد، الكيلومتر، والدقيقة. وبيشتغل حتى والشاشة مسكّرة.</p></div>
+      <div class="card"><div class="ic">💰</div><h3>صافي ربحك</h3><p>سجّل البنزين والزيت والصيانة، واعرف كم ضايل معك فعلياً.</p></div>
+      <div class="card"><div class="ic">🏆</div><h3>التحدّي اليومي</h3><p>حط هدفك، وتابع تقدّمك بشريط يحمّسك طول اليوم.</p></div>
+      <div class="card"><div class="ic">🕌</div><h3>أذكار وصلاة</h3><p>أوقات الصلاة لمكانك، واتجاه القبلة، وأذكار ترافقك بالطريق.</p></div>
+      <div class="card"><div class="ic">🧾</div><h3>إيصال للراكب</h3><p>صورة إيصال مرتبة بتبعثها للراكب على واتساب بكبسة.</p></div>
+      <div class="card"><div class="ic">💾</div><h3>بياناتك محفوظة</h3><p>حفظ تلقائي لرحلاتك وتقدّمك، حتى لو حذفت التطبيق.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>كيف تثبّته؟</h2>
+    <div class="steps">
+      <div class="step"><div><b>اضغط «حمّل التطبيق»</b><span>بينزل ملف صغير على هاتفك.</span></div></div>
+      <div class="step"><div><b>افتح الملف واضغط «تثبيت»</b><span>إذا طلع تحذير «تطبيق غير معروف»، اضغط «تثبيت على أي حال».</span></div></div>
+      <div class="step"><div><b>افتح التطبيق والإنترنت شغّال</b><span>وبتبلّش تجربتك المجانية فوراً 🎉</span></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="price">
+      <div>بعد التجربة، النسخة الكاملة مدى الحياة</div>
+      <div class="big">5 دنانير</div>
+      <p>مرة وحدة بس • عبر كليك (أورنج موني)</p>
+      <a class="wa" href="https://wa.me/962790905298">💬 تواصل على واتساب</a>
+    </div>
+  </section>
+
+  <footer>صُنع بحب لكباتن الأردن 🇯🇴 • رفيق دربك للكابتن</footer>
+</div>
+
+<script>
+  // يعرض رقم آخر إصدار من version.json
+  fetch("version.json", { cache: "no-store" })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (v) {
+      if (v && v.name) document.getElementById("ver").textContent = "لأجهزة أندرويد • الإصدار " + v.name;
+    })
+    .catch(function () {});
+</script>
+</body>
+</html>
