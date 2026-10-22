@@ -1,0 +1,25 @@
+name: release
+# النشر التلقائي: عند رفع darb.apk جديد ينشئ إصداراً باسم vX.Y.Z (من release.txt)
+on:
+  push:
+    branches: [main]
+    paths: [darb.apk]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          NAME=$(sed -n 1p release.txt)
+          NOTE=$(sed -n 2p release.txt)
+          if gh release view "v$NAME" >/dev/null 2>&1; then
+            gh release upload "v$NAME" darb.apk --clobber
+          else
+            gh release create "v$NAME" darb.apk --title "رفيق دربك $NAME" --notes "$NOTE" --latest
+          fi
